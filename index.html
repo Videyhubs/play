@@ -355,9 +355,9 @@
         <!-- Upload Area -->
         <div class="upload-container">
             <div class="upload-area" id="dropZone">
-                <div class="upload-icon">??</div>
+                <div class="upload-icon">📹</div>
                 <div class="upload-text">Klik atau drag video ke sini</div>
-                <div class="upload-subtext">Maksimal 2GB � Format apapun</div>
+                <div class="upload-subtext">Maksimal 2GB • Format apapun</div>
                 <input type="file" class="file-input" id="fileInput" accept="video/*">
             </div>
 
@@ -374,29 +374,29 @@
 
             <!-- Result -->
             <div class="result-box" id="resultBox">
-                <div style="color: #333; font-weight: 600; margin-bottom: 0.5rem;">?? Video berhasil diupload!</div>
+                <div style="color: #333; font-weight: 600; margin-bottom: 0.5rem;">🎉 Video berhasil diupload!</div>
                 <div style="color: #666; font-size: 0.9rem;">Link akan aktif selama 14 hari</div>
                 <div class="video-link">
                     <input type="text" id="videoUrl" readonly value="">
                     <button class="copy-btn" onclick="copyLink()">Copy Link</button>
                     <a href="#" class="watch-btn" id="watchBtn" target="_blank">Tonton</a>
                 </div>
-                <div class="success-msg" id="successMsg">? Link berhasil disalin!</div>
+                <div class="success-msg" id="successMsg">✓ Link berhasil disalin!</div>
             </div>
         </div>
 
         <!-- Features -->
         <div class="features">
             <div class="feature">
-                <div class="feature-icon">?</div>
+                <div class="feature-icon">⚡</div>
                 <div class="feature-text">Cepat & Gratis</div>
             </div>
             <div class="feature">
-                <div class="feature-icon">??</div>
+                <div class="feature-icon">🔒</div>
                 <div class="feature-text">Aman & Privat</div>
             </div>
             <div class="feature">
-                <div class="feature-icon">??</div>
+                <div class="feature-icon">📱</div>
                 <div class="feature-text">Mobile Friendly</div>
             </div>
         </div>
@@ -409,7 +409,7 @@
             <a href="#">Terms of Service</a>
             <a href="#">Abuse</a>
         </div>
-        <div class="copyright">� Videy Cloud. All rights reserved.</div>
+        <div class="copyright">© Videy Cloud. All rights reserved.</div>
     </footer>
 
     <script>
@@ -513,7 +513,7 @@
         }
 
         function showError(msg) {
-            errorMsg.textContent = '? ' + msg;
+            errorMsg.textContent = '❌ ' + msg;
             errorMsg.style.display = 'block';
             progressContainer.style.display = 'none';
             dropZone.classList.remove('uploading');
