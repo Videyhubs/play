@@ -1,23 +1,44 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videy - Integrated with videy.co</title>
+    <title>Videy Pro - Universal Video Sharing</title>
+    <meta name="description" content="Share videos from any source - Upload, X.com, qu.ax, videy.co">
+    
     <style>
         :root {
             --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --videy: #ff6b6b;
-            --bg: #0f0f0f;
-            --surface: #1a1a1a;
-            --surface-light: #27272a;
-            --text: #fafafa;
-            --text-muted: #a1a1aa;
+            --primary-light: #818cf8;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
             --success: #22c55e;
-            --error: #ef4444;
             --warning: #f59e0b;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --error: #ef4444;
+            
+            --bg: #0a0a0f;
+            --surface: #13131f;
+            --surface-light: #1e1e2e;
+            --surface-hover: #252538;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(148, 163, 184, 0.1);
+            
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --glass: rgba(19, 19, 31, 0.8);
+        }
+
+        [data-theme="light"] {
+            --bg: #f1f5f9;
+            --surface: #ffffff;
+            --surface-light: #f8fafc;
+            --surface-hover: #f1f5f9;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: rgba(148, 163, 184, 0.2);
+            --glass: rgba(255, 255, 255, 0.9);
         }
 
         * {
@@ -26,31 +47,89 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
             line-height: 1.6;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
         }
 
-        /* Background */
-        .bg-mesh {
+        /* Animated Background */
+        .bg-canvas {
             position: fixed;
             inset: 0;
-            background: 
-                radial-gradient(at 0% 0%, hsla(253,100%,56%,0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, hsla(340,100%,76%,0.1) 0px, transparent 50%);
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--primary);
+            top: -300px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--secondary);
+            bottom: -200px;
+            right: -100px;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            top: 50%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        /* Grid Pattern */
+        .grid-pattern {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
             z-index: 0;
             pointer-events: none;
         }
 
+        /* Container */
         .container {
             position: relative;
             z-index: 1;
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 2rem 1.5rem;
+            padding: 2rem;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -58,121 +137,198 @@
 
         /* Header */
         .header {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 2rem;
-            animation: fadeInDown 0.8s ease;
+            animation: slideDown 0.8s ease;
         }
 
-        .logo {
-            font-size: 2.5rem;
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3); }
+            50% { box-shadow: 0 15px 50px rgba(99, 102, 241, 0.5); }
+        }
+
+        .brand-text h1 {
+            font-size: 1.75rem;
             font-weight: 800;
-            background: var(--gradient);
+            background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            line-height: 1.2;
         }
 
-        .badge-videy {
-            background: var(--videy);
-            color: white;
-            font-size: 0.7rem;
-            padding: 0.3rem 0.6rem;
-            border-radius: 20px;
-            font-weight: 700;
-            -webkit-text-fill-color: white;
-            vertical-align: middle;
-            margin-left: 0.5rem;
-        }
-
-        .tagline {
-            color: var(--text-muted);
-            margin-top: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .integration-info {
-            background: rgba(255, 107, 107, 0.1);
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            padding: 0.8rem 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
+        .brand-text p {
             font-size: 0.85rem;
             color: var(--text-muted);
+        }
+
+        .header-actions {
             display: flex;
-            align-items: center;
-            justify-content: center;
             gap: 0.5rem;
         }
 
-        /* Mode Selection */
-        .mode-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--surface);
-            padding: 0.5rem;
+        .icon-btn {
+            width: 44px;
+            height: 44px;
             border-radius: 12px;
-        }
-
-        .mode-tab {
-            flex: 1;
-            padding: 0.8rem;
-            border: none;
-            background: transparent;
-            color: var(--text-muted);
-            border-radius: 8px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            font-size: 1.2rem;
+            transition: all 0.3s;
         }
 
-        .mode-tab.active {
-            background: var(--gradient);
-            color: white;
+        .icon-btn:hover {
+            background: var(--surface-hover);
+            transform: translateY(-2px);
+            border-color: var(--primary);
         }
 
-        .mode-tab:hover:not(.active) {
-            color: var(--text);
-            background: rgba(255,255,255,0.05);
+        /* Source Selector */
+        .source-tabs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.6s ease 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .source-tab {
+            position: relative;
+            padding: 1rem;
+            background: var(--surface);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .source-tab::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .source-tab.active {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .source-tab.active::before {
+            opacity: 0.1;
+        }
+
+        .source-icon {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .source-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        .source-tab.active .source-label {
+            color: var(--primary);
+            font-weight: 700;
         }
 
         /* Main Card */
-        .card {
-            background: var(--surface);
-            border: 1px solid rgba(255,255,255,0.05);
+        .main-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
             border-radius: 24px;
             padding: 2rem;
-            animation: fadeInUp 0.8s ease 0.2s both;
+            animation: slideUp 0.8s ease 0.3s both;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
-        /* Upload Area */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Upload Zone */
         .upload-zone {
-            border: 2px dashed rgba(255,255,255,0.2);
-            border-radius: 16px;
+            position: relative;
+            border: 3px dashed var(--border);
+            border-radius: 20px;
             padding: 3rem 2rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
-            background: rgba(255,255,255,0.02);
-            position: relative;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
             overflow: hidden;
+        }
+
+        .upload-zone::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: var(--gradient-1);
+            border-radius: 22px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s;
         }
 
         .upload-zone:hover {
             border-color: var(--primary);
-            background: rgba(99, 102, 241, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .upload-zone:hover::before {
+            opacity: 0.3;
         }
 
         .upload-zone.dragover {
-            border-color: var(--videy);
-            background: rgba(255, 107, 107, 0.1);
+            border-color: var(--success);
+            background: rgba(34, 197, 94, 0.1);
             transform: scale(1.02);
         }
 
@@ -181,18 +337,31 @@
             opacity: 0.7;
         }
 
-        .upload-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+        .upload-illustration {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            animation: bounce 2s infinite;
         }
 
-        .upload-text {
-            font-size: 1.2rem;
-            font-weight: 600;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .upload-title {
+            font-size: 1.25rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        .upload-hint {
+        .upload-subtitle {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
@@ -201,27 +370,18 @@
             display: none;
         }
 
-        /* OR Divider */
-        .or-divider {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            color: var(--text-muted);
-            font-size: 0.85rem;
+        /* URL Input Section */
+        .url-section {
+            display: none;
         }
 
-        .or-divider::before,
-        .or-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(255,255,255,0.1);
+        .url-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
         }
 
-        /* URL Input */
         .input-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
 
         .input-label {
@@ -237,29 +397,65 @@
             position: relative;
         }
 
-        .input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-
         .input-field {
             width: 100%;
-            padding: 1rem 1rem 1rem 2.8rem;
+            padding: 1rem 1rem 1rem 3rem;
             background: var(--surface-light);
             border: 2px solid transparent;
             border-radius: 12px;
             color: var(--text);
             font-size: 1rem;
             transition: all 0.3s;
+            font-family: inherit;
         }
 
         .input-field:focus {
             outline: none;
             border-color: var(--primary);
+            background: var(--surface);
         }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        .input-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .input-hint.success {
+            color: var(--success);
+        }
+
+        .input-hint.error {
+            color: var(--error);
+        }
+
+        /* Source Badges */
+        .source-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-videy { background: rgba(99, 102, 241, 0.2); color: var(--primary); }
+        .badge-x { background: rgba(0, 0, 0, 0.2); color: #000; }
+        .badge-quax { background: rgba(6, 182, 212, 0.2); color: var(--accent); }
+        .badge-file { background: rgba(34, 197, 94, 0.2); color: var(--success); }
 
         /* Progress */
         .progress-container {
@@ -267,59 +463,60 @@
             margin-top: 1.5rem;
         }
 
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
         .progress-bar {
             height: 8px;
-            background: rgba(255,255,255,0.1);
+            background: var(--surface-light);
             border-radius: 4px;
             overflow: hidden;
-            margin-bottom: 0.8rem;
         }
 
         .progress-fill {
             height: 100%;
-            background: var(--gradient);
+            background: var(--gradient-1);
             width: 0%;
             transition: width 0.3s;
             border-radius: 4px;
         }
 
-        .progress-text {
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
         /* URL Preview */
-        .url-preview {
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
+        .preview-card {
             display: none;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
-        .url-preview.show {
+        .preview-card.show {
             display: block;
-            animation: pulse 2s infinite;
+            animation: pulse-border 2s infinite;
         }
 
-        @keyframes pulse {
+        @keyframes pulse-border {
             0%, 100% { border-color: rgba(99, 102, 241, 0.3); }
             50% { border-color: rgba(99, 102, 241, 0.6); }
         }
 
         .preview-label {
             font-size: 0.75rem;
-            color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
             margin-bottom: 0.5rem;
         }
 
         .preview-url {
-            font-family: monospace;
-            font-size: 0.9rem;
-            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            word-break: break-all;
         }
 
         .preview-url .highlight {
@@ -327,52 +524,40 @@
             font-weight: 700;
         }
 
-        /* Title & Slug */
-        .form-row {
+        /* Form Grid */
+        .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
         }
 
         @media (max-width: 640px) {
-            .form-row { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .source-tabs { grid-template-columns: repeat(2, 1fr); }
         }
 
-        .auto-badge {
-            font-size: 0.7rem;
-            padding: 0.2rem 0.5rem;
-            background: rgba(34, 197, 94, 0.2);
-            color: var(--success);
-            border-radius: 4px;
-            font-weight: 500;
-        }
-
-        .custom-badge {
-            background: rgba(99, 102, 241, 0.2);
-            color: var(--primary);
-        }
-
-        /* Slug Box */
-        .slug-container {
+        /* Slug Input */
+        .slug-wrapper {
             display: flex;
             align-items: center;
             background: var(--surface-light);
             border-radius: 12px;
-            overflow: hidden;
             border: 2px solid transparent;
+            overflow: hidden;
             transition: all 0.3s;
         }
 
-        .slug-container:focus-within {
+        .slug-wrapper:focus-within {
             border-color: var(--primary);
+            background: var(--surface);
         }
 
         .slug-prefix {
             padding: 1rem;
             color: var(--text-muted);
-            font-family: monospace;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
-            border-right: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid var(--border);
         }
 
         .slug-input {
@@ -383,52 +568,78 @@
             color: var(--text);
             font-size: 1rem;
             outline: none;
-            font-family: monospace;
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        .slug-btn {
-            padding: 0.5rem 1rem;
-            margin-right: 0.5rem;
+        .slug-actions {
+            display: flex;
+            gap: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .action-icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             border: none;
             background: var(--surface);
             color: var(--text);
-            border-radius: 6px;
             cursor: pointer;
-            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
         }
 
-        .slug-btn:hover {
+        .action-icon-btn:hover {
             background: var(--primary);
+            color: white;
         }
 
         .slug-status {
             padding: 0 1rem;
             font-size: 0.85rem;
+            font-weight: 600;
         }
-
-        .slug-status.available { color: var(--success); }
-        .slug-status.taken { color: var(--error); }
 
         /* Create Button */
         .create-btn {
             width: 100%;
-            padding: 1.2rem;
-            background: var(--gradient);
+            padding: 1.25rem;
+            background: var(--gradient-1);
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 16px;
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .create-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .create-btn:hover::before {
+            left: 100%;
         }
 
         .create-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
         }
 
@@ -437,66 +648,70 @@
             cursor: not-allowed;
         }
 
-        .spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
         /* Result */
-        .result {
+        .result-card {
             display: none;
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: rgba(34, 197, 94, 0.1);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
             border: 1px solid var(--success);
-            border-radius: 16px;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
         }
 
-        .result.show {
+        .result-card.show {
             display: block;
             animation: scaleIn 0.5s ease;
-        }
-
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
         }
 
         .result-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             color: var(--success);
             font-weight: 700;
             margin-bottom: 1rem;
+            font-size: 1.1rem;
         }
 
-        .result-grid {
+        .result-url-box {
+            background: var(--surface);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .result-url {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+
+        .result-actions {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.8rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
         }
 
         .result-btn {
-            padding: 0.9rem;
-            border-radius: 10px;
+            padding: 0.875rem;
+            border-radius: 12px;
             border: none;
-            cursor: pointer;
             font-size: 0.9rem;
             font-weight: 600;
+            cursor: pointer;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
+            gap: 0.25rem;
             transition: all 0.3s;
+        }
+
+        .result-btn .icon {
+            font-size: 1.25rem;
+        }
+
+        .result-btn .label {
+            font-size: 0.75rem;
         }
 
         .result-btn.primary {
@@ -507,362 +722,556 @@
         .result-btn.secondary {
             background: var(--surface-light);
             color: var(--text);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border);
+        }
+
+        .result-btn:hover {
+            transform: translateY(-2px);
         }
 
         .result-btn.copied {
             background: var(--success) !important;
         }
 
-        /* Info Box */
-        .info-box {
-            background: rgba(255, 193, 7, 0.1);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
+        @media (max-width: 640px) {
+            .result-actions { grid-template-columns: repeat(2, 1fr); }
         }
 
-        .info-box strong {
-            color: var(--warning);
-        }
-
-        /* Error */
-        .error-box {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid var(--error);
-            color: var(--error);
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            display: none;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .error-box.show {
-            display: flex;
-        }
-
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: var(--surface);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            z-index: 1000;
-            opacity: 0;
-            transition: all 0.3s;
-            border-left: 4px solid var(--success);
-        }
-
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-
-        /* Recent */
+        /* Recent Videos */
         .recent-section {
             margin-top: 3rem;
+            animation: slideUp 0.8s ease 0.5s both;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
         }
 
         .section-title {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .video-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
+        .clear-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .video-item {
+        .clear-btn:hover {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .video-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .video-card {
             display: flex;
-            align-items: center;
             gap: 1rem;
             padding: 1rem;
             background: var(--surface);
-            border-radius: 12px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
             text-decoration: none;
             color: inherit;
             transition: all 0.3s;
         }
 
-        .video-item:hover {
-            background: var(--surface-light);
+        .video-card:hover {
+            background: var(--surface-hover);
+            border-color: var(--primary);
             transform: translateX(5px);
         }
 
         .video-thumb {
-            width: 80px;
-            height: 45px;
-            background: var(--gradient);
-            border-radius: 8px;
+            width: 120px;
+            height: 68px;
+            background: var(--gradient-1);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 2rem;
             flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-thumb::after {
+            content: '▶';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .video-card:hover .video-thumb::after {
+            opacity: 1;
         }
 
         .video-info {
             flex: 1;
             min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .video-title {
             font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-bottom: 0.2rem;
         }
 
         .video-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-size: 0.8rem;
             color: var(--text-muted);
         }
 
-        .video-source {
-            display: inline-block;
+        .source-tag {
             padding: 0.2rem 0.5rem;
-            background: rgba(255, 107, 107, 0.2);
-            color: var(--videy);
             border-radius: 4px;
             font-size: 0.7rem;
-            margin-left: 0.5rem;
+            font-weight: 600;
         }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .toast {
+            background: var(--surface);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--success);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideInRight 0.3s ease;
+            min-width: 300px;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100%); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .toast.error { border-left-color: var(--error); }
+        .toast.warning { border-left-color: var(--warning); }
 
         /* Footer */
         .footer {
             margin-top: auto;
             padding-top: 3rem;
             text-align: center;
+        }
+
+        .footer-brands {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .brand-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             color: var(--text-muted);
             font-size: 0.85rem;
         }
 
-        .powered-by {
+        .brand-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dot-videy { background: var(--primary); }
+        .dot-x { background: #000; }
+        .dot-quax { background: var(--accent); }
+
+        .footer-links {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, var(--surface) 25%, var(--surface-light) 50%, var(--surface) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Error Box */
+        .error-box {
+            display: none;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
+            padding: 1rem;
+            border-radius: 12px;
             margin-bottom: 1rem;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
+        .error-box.show {
+            display: flex;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 1.5rem; }
+            .brand-text h1 { font-size: 1.5rem; }
+            .main-card { padding: 1.5rem; }
+            .upload-zone { padding: 2rem 1.5rem; }
+            .upload-illustration { width: 80px; height: 80px; font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
-    <div class="bg-mesh"></div>
+    <div class="bg-canvas">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+    <div class="grid-pattern"></div>
 
     <div class="container">
+        <!-- Header -->
         <header class="header">
-            <div class="logo">
-                Videy
-                <span class="badge-videy">POWERED BY videy.co</span>
+            <div class="brand">
+                <div class="logo-icon">▶</div>
+                <div class="brand-text">
+                    <h1>Videy Pro</h1>
+                    <p>Universal Video Sharing</p>
+                </div>
             </div>
-            <p class="tagline">Upload video gratis, bagikan dengan URL simpel</p>
-            <div class="integration-info">
-                <span>☁️</span>
-                <span>Video dihosting di videy.co • Metadata di browser Anda</span>
+            <div class="header-actions">
+                <button class="icon-btn" onclick="toggleTheme()" title="Toggle Theme">🌓</button>
+                <button class="icon-btn" onclick="showHelp()" title="Help">❓</button>
             </div>
         </header>
 
-        <main class="card">
+        <!-- Source Tabs -->
+        <div class="source-tabs">
+            <div class="source-tab active" onclick="setSource('upload')" id="tab-upload">
+                <div class="source-icon">📤</div>
+                <div class="source-label">Upload File</div>
+            </div>
+            <div class="source-tab" onclick="setSource('videy')" id="tab-videy">
+                <div class="source-icon">☁️</div>
+                <div class="source-label">videy.co</div>
+            </div>
+            <div class="source-tab" onclick="setSource('x')" id="tab-x">
+                <div class="source-icon">𝕏</div>
+                <div class="source-label">X.com</div>
+            </div>
+            <div class="source-tab" onclick="setSource('quax')" id="tab-quax">
+                <div class="source-icon">📎</div>
+                <div class="source-label">qu.ax</div>
+            </div>
+        </div>
+
+        <!-- Main Card -->
+        <main class="main-card">
             <div class="error-box" id="errorBox">
                 <span>⚠️</span>
                 <span id="errorText"></span>
             </div>
 
-            <!-- Mode Tabs -->
-            <div class="mode-tabs">
-                <button class="mode-tab active" onclick="setMode('upload')" id="tabUpload">
-                    <span>📤</span>
-                    <span>Upload File</span>
-                </button>
-                <button class="mode-tab" onclick="setMode('url')" id="tabUrl">
-                    <span>🔗</span>
-                    <span>From URL</span>
-                </button>
-            </div>
-
             <!-- Upload Mode -->
-            <div id="uploadMode">
+            <div class="upload-section" id="uploadSection">
                 <div class="upload-zone" id="dropZone">
-                    <div class="upload-icon">📹</div>
-                    <div class="upload-text">Drop video atau klik untuk upload</div>
-                    <div class="upload-hint">Maks 100MB • MP4, MOV, AVI • Powered by videy.co</div>
+                    <div class="upload-illustration">📹</div>
+                    <div class="upload-title">Drop video di sini</div>
+                    <div class="upload-subtitle">atau klik untuk browse • Max 100MB</div>
                     <input type="file" class="file-input" id="fileInput" accept="video/*">
                 </div>
 
                 <div class="progress-container" id="progressContainer">
+                    <div class="progress-header">
+                        <span id="progressLabel">Uploading...</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
                     <div class="progress-bar">
                         <div class="progress-fill" id="progressFill"></div>
                     </div>
-                    <div class="progress-text" id="progressText">Uploading ke videy.co... 0%</div>
                 </div>
             </div>
 
-            <!-- URL Mode -->
-            <div id="urlMode" style="display: none;">
+            <!-- URL Input Modes -->
+            <div class="url-section" id="urlSection">
                 <div class="input-group">
                     <label class="input-label">
-                        <span>🔗</span>
-                        URL Video (MP4)
+                        <span id="urlIcon">🔗</span>
+                        <span id="urlLabel">Video URL</span>
+                        <span class="source-badge" id="sourceBadge"></span>
                     </label>
                     <div class="input-wrapper">
-                        <span class="input-icon">🌐</span>
-                        <input type="url" class="input-field" id="externalUrl" 
-                               placeholder="https://example.com/video.mp4">
+                        <span class="input-icon" id="urlInputIcon">🌐</span>
+                        <input type="url" class="input-field" id="videoUrl" 
+                               placeholder="Paste URL video di sini...">
+                    </div>
+                    <div class="input-hint" id="urlHint">
+                        <span>💡</span>
+                        <span>Support: MP4, WebM, MOV langsung</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Card -->
+            <div class="preview-card" id="previewCard">
+                <div class="preview-label">🔗 URL yang akan dibuat</div>
+                <div class="preview-url" id="previewUrl">
+                    Loading...
+                </div>
+            </div>
+
+            <!-- Form Grid -->
+            <div class="form-grid">
+                <div class="input-group">
+                    <label class="input-label">
+                        <span>📝</span>
+                        Judul Video
+                        <span class="source-badge badge-file" id="titleBadge">Auto</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">✨</span>
+                        <input type="text" class="input-field" id="videoTitle" 
+                               placeholder="Auto-detect dari sumber">
                     </div>
                 </div>
 
-                <div class="info-box">
-                    <strong>💡 Tips:</strong> Anda bisa paste URL dari videy.co, File.io, atau hosting lain.
+                <div class="input-group">
+                    <label class="input-label">
+                        <span>✨</span>
+                        Custom URL
+                        <span class="source-badge badge-file" id="slugBadge">Auto</span>
+                    </label>
+                    <div class="slug-wrapper">
+                        <span class="slug-prefix">/v/</span>
+                        <input type="text" class="slug-input" id="customSlug" 
+                               placeholder="random-id">
+                        <div class="slug-actions">
+                            <button class="action-icon-btn" onclick="generateRandomSlug()" title="Random">🎲</button>
+                        </div>
+                        <span class="slug-status" id="slugStatus"></span>
+                    </div>
                 </div>
             </div>
 
-            <!-- URL Preview -->
-            <div class="url-preview" id="urlPreview">
-                <div class="preview-label">🔗 URL yang akan dibuat</div>
-                <div class="preview-url" id="previewText">Loading...</div>
-            </div>
-
-            <!-- Title -->
-            <div class="input-group">
-                <label class="input-label">
-                    <span>📝</span>
-                    Judul Video
-                    <span class="auto-badge" id="titleBadge">Auto</span>
-                </label>
-                <div class="input-wrapper">
-                    <span class="input-icon">✨</span>
-                    <input type="text" class="input-field" id="videoTitle" 
-                           placeholder="Kosongkan untuk auto-detect">
-                </div>
-            </div>
-
-            <!-- Custom URL -->
-            <div class="input-group">
-                <label class="input-label">
-                    <span>✨</span>
-                    Custom URL
-                    <span class="auto-badge" id="slugBadge">Auto</span>
-                </label>
-                <div class="slug-container">
-                    <span class="slug-prefix">/v/</span>
-                    <input type="text" class="slug-input" id="customSlug" 
-                           placeholder="random-id-otomatis" maxlength="50">
-                    <button class="slug-btn" onclick="generateRandomSlug()">🎲</button>
-                    <span class="slug-status" id="slugStatus"></span>
-                </div>
-            </div>
-
-            <!-- Description -->
             <div class="input-group">
                 <label class="input-label">
                     <span>📄</span>
                     Deskripsi (Opsional)
                 </label>
                 <textarea class="input-field" id="videoDesc" rows="2" 
-                          placeholder="Jelaskan tentang video ini..."></textarea>
+                          placeholder="Tambahkan deskripsi video..."></textarea>
             </div>
 
-            <!-- Create Button -->
             <button class="create-btn" id="createBtn" onclick="createPost()">
                 <span>🚀</span>
                 <span>Buat Link Video</span>
             </button>
 
             <!-- Result -->
-            <div class="result" id="result">
+            <div class="result-card" id="resultCard">
                 <div class="result-header">
                     <span>✅</span>
                     <span>Video berhasil dibuat!</span>
                 </div>
-                <div class="result-grid">
+                <div class="result-url-box">
+                    <div class="result-url" id="resultUrl"></div>
+                </div>
+                <div class="result-actions">
                     <button class="result-btn primary" onclick="copyResult()">
-                        <span>📋</span>
-                        <span id="copyText">Copy Link</span>
+                        <span class="icon">📋</span>
+                        <span class="label">Copy</span>
                     </button>
                     <button class="result-btn secondary" onclick="openVideo()">
-                        <span>▶</span>
-                        <span>Lihat</span>
+                        <span class="icon">▶</span>
+                        <span class="label">Watch</span>
                     </button>
                     <button class="result-btn secondary" onclick="shareVideo()">
-                        <span>📤</span>
-                        <span>Share</span>
+                        <span class="icon">📤</span>
+                        <span class="label">Share</span>
                     </button>
                     <button class="result-btn secondary" onclick="qrCode()">
-                        <span>📱</span>
-                        <span>QR</span>
+                        <span class="icon">📱</span>
+                        <span class="label">QR</span>
                     </button>
                 </div>
             </div>
         </main>
 
-        <!-- Recent -->
+        <!-- Recent Videos -->
         <section class="recent-section">
-            <h2 class="section-title">
-                <span>🕐</span>
-                Video Terbaru Anda
-            </h2>
-            <div class="video-list" id="videoList"></div>
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span>🕐</span>
+                    Video Terbaru
+                </h2>
+                <button class="clear-btn" onclick="clearAll()">Clear All</button>
+            </div>
+            <div class="video-grid" id="videoGrid">
+                <!-- Populated by JS -->
+            </div>
         </section>
 
+        <!-- Footer -->
         <footer class="footer">
-            <div class="powered-by">
-                <span>Powered by</span>
-                <span style="color: var(--videy); font-weight: 700;">videy.co</span>
-                <span>•</span>
-                <span>Storage by GitHub Pages</span>
+            <div class="footer-brands">
+                <div class="brand-item">
+                    <span class="brand-dot dot-videy"></span>
+                    <span>videy.co</span>
+                </div>
+                <div class="brand-item">
+                    <span class="brand-dot dot-x"></span>
+                    <span>X.com</span>
+                </div>
+                <div class="brand-item">
+                    <span class="brand-dot dot-quax"></span>
+                    <span>qu.ax</span>
+                </div>
             </div>
-            <div>
-                <a href="#" style="color: var(--text-muted);">Privacy</a>
-                <span style="margin: 0 0.5rem;">•</span>
-                <a href="#" style="color: var(--text-muted);">Terms</a>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">API</a>
+                <a href="#">GitHub</a>
             </div>
         </footer>
     </div>
 
-    <div class="toast" id="toast">
-        <span>✅</span>
-        <span id="toastMsg">Berhasil!</span>
-    </div>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
 
     <script>
         // State
-        let currentMode = 'upload';
-        let uploadedVideyUrl = '';
+        let currentSource = 'upload';
+        let uploadedUrl = '';
         let generatedUrl = '';
         let generatedId = '';
+
+        // Source configurations
+        const sources = {
+            upload: {
+                name: 'Upload File',
+                icon: '📤',
+                placeholder: 'Drop file atau browse',
+                hint: 'Max 100MB • MP4, WebM, MOV',
+                badge: '',
+                color: ''
+            },
+            videy: {
+                name: 'videy.co',
+                icon: '☁️',
+                placeholder: 'https://videy.co/v/?id=xxx',
+                hint: 'Paste link videy.co Anda',
+                badge: 'videy',
+                color: '#6366f1'
+            },
+            x: {
+                name: 'X.com',
+                icon: '𝕏',
+                placeholder: 'https://x.com/username/status/xxx',
+                hint: 'Paste link tweet dengan video',
+                badge: 'x',
+                color: '#000000'
+            },
+            quax: {
+                name: 'qu.ax',
+                icon: '📎',
+                placeholder: 'https://qu.ax/xxx',
+                hint: 'Paste link qu.ax Anda',
+                badge: 'quax',
+                color: '#06b6d4'
+            }
+        };
 
         // Init
         document.addEventListener('DOMContentLoaded', () => {
             loadRecentVideos();
             setupEventListeners();
+            checkTheme();
         });
 
         function setupEventListeners() {
@@ -873,7 +1282,7 @@
             dropZone.addEventListener('click', () => fileInput.click());
             
             fileInput.addEventListener('change', (e) => {
-                if (e.target.files[0]) handleUpload(e.target.files[0]);
+                if (e.target.files[0]) handleFileUpload(e.target.files[0]);
             });
 
             // Drag & drop
@@ -889,55 +1298,67 @@
             dropZone.addEventListener('drop', (e) => {
                 e.preventDefault();
                 dropZone.classList.remove('dragover');
-                if (e.dataTransfer.files[0]) handleUpload(e.dataTransfer.files[0]);
+                if (e.dataTransfer.files[0]) handleFileUpload(e.dataTransfer.files[0]);
             });
 
-            // Auto title from URL
-            document.getElementById('externalUrl').addEventListener('input', updatePreview);
+            // URL input
+            document.getElementById('videoUrl').addEventListener('input', handleUrlInput);
             
             // Title override
             document.getElementById('videoTitle').addEventListener('input', function() {
-                if (this.value.trim()) {
-                    document.getElementById('titleBadge').textContent = 'Custom';
-                    document.getElementById('titleBadge').className = 'auto-badge custom-badge';
-                } else {
-                    document.getElementById('titleBadge').textContent = 'Auto';
-                    document.getElementById('titleBadge').className = 'auto-badge';
-                }
+                updateBadge('titleBadge', this.value ? 'Custom' : 'Auto', this.value ? 'custom' : 'auto');
             });
 
-            // Slug validation
+            // Slug
             document.getElementById('customSlug').addEventListener('input', validateSlug);
         }
 
-        function setMode(mode) {
-            currentMode = mode;
-            document.getElementById('tabUpload').classList.toggle('active', mode === 'upload');
-            document.getElementById('tabUrl').classList.toggle('active', mode === 'url');
-            document.getElementById('uploadMode').style.display = mode === 'upload' ? 'block' : 'none';
-            document.getElementById('urlMode').style.display = mode === 'url' ? 'block' : 'none';
+        function setSource(source) {
+            currentSource = source;
             
-            uploadedVideyUrl = '';
+            // Update tabs
+            document.querySelectorAll('.source-tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(`tab-${source}`).classList.add('active');
+            
+            // Update sections
+            const isUpload = source === 'upload';
+            document.getElementById('uploadSection').style.display = isUpload ? 'block' : 'none';
+            document.getElementById('urlSection').classList.toggle('active', !isUpload);
+            
+            // Update URL input config
+            if (!isUpload) {
+                const config = sources[source];
+                document.getElementById('urlIcon').textContent = config.icon;
+                document.getElementById('urlLabel').textContent = `${config.name} URL`;
+                document.getElementById('videoUrl').placeholder = config.placeholder;
+                document.getElementById('urlHint').innerHTML = `<span>💡</span><span>${config.hint}</span>`;
+                
+                const badge = document.getElementById('sourceBadge');
+                badge.className = `source-badge badge-${config.badge}`;
+                badge.textContent = config.name;
+            }
+            
+            // Reset
+            uploadedUrl = '';
             updatePreview();
         }
 
-        // Upload ke videy.co (simulasi dengan file.io sebagai fallback)
-        async function handleUpload(file) {
+        async function handleFileUpload(file) {
             if (!file.type.startsWith('video/')) {
-                showError('File harus berupa video!');
+                showToast('File harus berupa video!', 'error');
                 return;
             }
 
             const dropZone = document.getElementById('dropZone');
             const progressContainer = document.getElementById('progressContainer');
             const progressFill = document.getElementById('progressFill');
-            const progressText = document.getElementById('progressText');
+            const progressPercent = document.getElementById('progressPercent');
 
             dropZone.classList.add('uploading');
             progressContainer.style.display = 'block';
 
             try {
-                // Upload ke file.io (free, no auth, auto-expires)
+                // Try videy.co first (simulated with file.io for demo)
                 const formData = new FormData();
                 formData.append('file', file);
 
@@ -945,28 +1366,26 @@
                 
                 xhr.upload.addEventListener('progress', (e) => {
                     if (e.lengthComputable) {
-                        const percent = (e.loaded / e.total) * 100;
+                        const percent = Math.round((e.loaded / e.total) * 100);
                         progressFill.style.width = percent + '%';
-                        progressText.textContent = `Uploading... ${Math.round(percent)}%`;
+                        progressPercent.textContent = percent + '%';
                     }
                 });
 
                 xhr.addEventListener('load', () => {
                     if (xhr.status === 200) {
                         const response = JSON.parse(xhr.responseText);
-                        uploadedVideyUrl = response.link;
+                        uploadedUrl = response.link;
                         
-                        // Auto-generate title dari nama file
+                        // Auto title
                         const autoTitle = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
                         document.getElementById('videoTitle').placeholder = autoTitle;
                         
-                        progressText.textContent = '✅ Upload selesai!';
-                        updatePreview();
+                        dropZone.classList.remove('uploading');
+                        progressContainer.style.display = 'none';
                         
-                        setTimeout(() => {
-                            progressContainer.style.display = 'none';
-                            dropZone.classList.remove('uploading');
-                        }, 1000);
+                        showToast('✅ Upload selesai!');
+                        updatePreview();
                     } else {
                         throw new Error('Upload failed');
                     }
@@ -976,38 +1395,78 @@
                 xhr.send(formData);
 
             } catch (err) {
-                showError('Gagal upload: ' + err.message);
+                showToast('Upload gagal: ' + err.message, 'error');
                 dropZone.classList.remove('uploading');
                 progressContainer.style.display = 'none';
             }
         }
 
-        function updatePreview() {
-            const previewBox = document.getElementById('urlPreview');
-            const previewText = document.getElementById('previewText');
+        function handleUrlInput() {
+            const url = document.getElementById('videoUrl').value.trim();
             
-            let hasSource = false;
-            if (currentMode === 'upload' && uploadedVideyUrl) hasSource = true;
-            if (currentMode === 'url' && document.getElementById('externalUrl').value.trim()) hasSource = true;
-            
-            if (!hasSource) {
-                previewBox.classList.remove('show');
+            if (!url) {
+                updatePreview();
                 return;
             }
 
-            previewBox.classList.add('show');
+            // Detect source from URL
+            let detectedSource = currentSource;
+            if (url.includes('videy.co') || url.includes('videy')) detectedSource = 'videy';
+            else if (url.includes('x.com') || url.includes('twitter.com')) detectedSource = 'x';
+            else if (url.includes('qu.ax')) detectedSource = 'quax';
             
-            const base = window.location.origin + window.location.pathname.replace('index.html', '');
-            const slug = document.getElementById('customSlug').value.trim() || '[random]';
-            
-            previewText.innerHTML = `${base}v/?id=<span class="highlight">${slug}</span>`;
+            // Update UI if source detected
+            if (detectedSource !== currentSource && currentSource !== 'upload') {
+                // Optional: auto-switch tab
+            }
+
+            // Extract info based on source
+            let title = '';
+            if (detectedSource === 'videy') {
+                // videy.co URL format: https://videy.co/v/?id=xxx
+                const match = url.match(/[?&]id=([^&]+)/);
+                if (match) title = `Videy Video ${match[1]}`;
+            } else if (detectedSource === 'x') {
+                // X.com URL
+                title = 'X Video';
+            } else if (detectedSource === 'quax') {
+                // qu.ax URL format: https://qu.ax/xxx
+                const match = url.match(/qu\.ax\/([a-zA-Z0-9]+)/);
+                if (match) title = `qu.ax ${match[1]}`;
+            } else {
+                // Generic - extract from filename
+                try {
+                    const urlObj = new URL(url);
+                    const filename = urlObj.pathname.split('/').pop();
+                    title = filename.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+                } catch {}
+            }
+
+            if (title && !document.getElementById('videoTitle').value) {
+                document.getElementById('videoTitle').placeholder = title;
+            }
+
+            updatePreview();
         }
 
-        function generateRandomSlug() {
-            const id = Math.random().toString(36).substring(2, 8);
-            document.getElementById('customSlug').value = id;
-            validateSlug();
-            updatePreview();
+        function updatePreview() {
+            const previewCard = document.getElementById('previewCard');
+            const previewUrl = document.getElementById('previewUrl');
+            
+            const hasContent = (currentSource === 'upload' && uploadedUrl) || 
+                              (currentSource !== 'upload' && document.getElementById('videoUrl').value.trim());
+            
+            if (!hasContent) {
+                previewCard.classList.remove('show');
+                return;
+            }
+
+            previewCard.classList.add('show');
+            
+            const base = window.location.origin + window.location.pathname.replace('index.html', '');
+            const slug = document.getElementById('customSlug').value.trim() || '[auto-generated]';
+            
+            previewUrl.innerHTML = `${base}v/?id=<span class="highlight">${slug}</span>`;
         }
 
         function validateSlug() {
@@ -1022,58 +1481,64 @@
                 slug = clean;
             }
 
+            updateBadge('slugBadge', slug ? 'Custom' : 'Auto', slug ? 'custom' : 'auto');
+
             if (!slug) {
                 status.textContent = '';
-                document.getElementById('slugBadge').textContent = 'Auto';
                 return;
             }
 
-            document.getElementById('slugBadge').textContent = 'Custom';
-            document.getElementById('slugBadge').className = 'auto-badge custom-badge';
-
-            // Check availability
             const exists = localStorage.getItem(`videy_${slug}`);
             if (exists) {
-                status.textContent = '⚠️ Sudah dipakai';
+                status.textContent = '⚠️ Used';
                 status.className = 'slug-status taken';
             } else {
-                status.textContent = '✓ Tersedia';
+                status.textContent = '✓ Available';
                 status.className = 'slug-status available';
             }
+
+            updatePreview();
         }
 
-        function createPost() {
+        function generateRandomSlug() {
+            const id = Math.random().toString(36).substring(2, 8);
+            document.getElementById('customSlug').value = id;
+            validateSlug();
+        }
+
+        function updateBadge(id, text, type) {
+            const badge = document.getElementById(id);
+            badge.textContent = text;
+            badge.className = `source-badge ${type === 'custom' ? 'badge-videy' : 'badge-file'}`;
+        }
+
+        async function createPost() {
             let videoUrl;
             
-            if (currentMode === 'upload') {
-                if (!uploadedVideyUrl) {
-                    showError('Upload video terlebih dahulu!');
+            if (currentSource === 'upload') {
+                if (!uploadedUrl) {
+                    showToast('Upload video terlebih dahulu!', 'error');
                     return;
                 }
-                videoUrl = uploadedVideyUrl;
+                videoUrl = uploadedUrl;
             } else {
-                videoUrl = document.getElementById('externalUrl').value.trim();
+                videoUrl = document.getElementById('videoUrl').value.trim();
                 if (!videoUrl) {
-                    showError('Masukkan URL video!');
+                    showToast('Masukkan URL video!', 'error');
+                    return;
+                }
+                
+                // Validate URL format
+                if (!isValidUrl(videoUrl)) {
+                    showToast('URL tidak valid!', 'error');
                     return;
                 }
             }
 
-            // Get or auto-generate title
+            // Get title
             let title = document.getElementById('videoTitle').value.trim();
             if (!title) {
-                if (currentMode === 'upload') {
-                    const fileName = document.getElementById('fileInput').files[0]?.name || 'video';
-                    title = fileName.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
-                } else {
-                    try {
-                        const url = new URL(videoUrl);
-                        const path = url.pathname;
-                        title = path.substring(path.lastIndexOf('/') + 1).replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
-                    } catch {
-                        title = 'Untitled Video';
-                    }
-                }
+                title = document.getElementById('videoTitle').placeholder || 'Untitled Video';
             }
 
             // Generate ID
@@ -1085,19 +1550,18 @@
                     id = Math.random().toString(36).substring(2, 8);
                 } while (localStorage.getItem(`videy_${id}`));
             } else if (localStorage.getItem(`videy_${id}`)) {
-                if (!confirm(`URL "/v/${id}" sudah ada. Timpa?`)) return;
+                if (!confirm(`URL /v/${id} sudah ada. Timpa?`)) return;
             }
 
-            // Save data
+            // Save
             const data = {
                 id,
                 url: videoUrl,
                 title,
                 desc: document.getElementById('videoDesc').value.trim(),
+                source: currentSource,
                 created: Date.now(),
-                views: 0,
-                source: currentMode === 'upload' ? 'videy.co' : 'external',
-                videyId: currentMode === 'upload' ? extractVideyId(videoUrl) : null
+                views: 0
             };
 
             localStorage.setItem(`videy_${id}`, JSON.stringify(data));
@@ -1107,24 +1571,30 @@
             generatedUrl = `${base}v/?id=${id}`;
             generatedId = id;
 
-            document.getElementById('result').classList.add('show');
-            
+            document.getElementById('resultUrl').innerHTML = `
+                <span style="color: var(--text-muted);">${base}v/?id=</span>
+                <span style="color: var(--primary); font-weight: 700;">${id}</span>
+            `;
+            document.getElementById('resultCard').classList.add('show');
+
             // Update button
             const btn = document.getElementById('createBtn');
             btn.innerHTML = '<span>✨</span><span>Buat Lagi</span>';
             btn.onclick = resetForm;
 
-            hideError();
             loadRecentVideos();
             showToast('🎉 Video berhasil dibuat!');
             
-            setTimeout(() => copyResult(), 800);
+            setTimeout(() => copyResult(), 1000);
         }
 
-        function extractVideyId(url) {
-            // Extract ID dari URL videy.co jika ada
-            const match = url.match(/videy\.co\/.*[?&]id=([^&]+)/);
-            return match ? match[1] : null;
+        function isValidUrl(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
         }
 
         function copyResult() {
@@ -1133,10 +1603,11 @@
             
             const btn = document.querySelector('.result-btn.primary');
             btn.classList.add('copied');
-            btn.innerHTML = '<span>✓</span><span>Tersalin!</span>';
+            const original = btn.innerHTML;
+            btn.innerHTML = '<span class="icon">✓</span><span class="label">Copied!</span>';
             setTimeout(() => {
                 btn.classList.remove('copied');
-                btn.innerHTML = '<span>📋</span><span>Copy Link</span>';
+                btn.innerHTML = original;
             }, 2000);
         }
 
@@ -1157,42 +1628,39 @@
         }
 
         function resetForm() {
-            // Reset all fields
+            // Reset all
             document.getElementById('fileInput').value = '';
-            document.getElementById('externalUrl').value = '';
+            document.getElementById('videoUrl').value = '';
             document.getElementById('videoTitle').value = '';
             document.getElementById('customSlug').value = '';
             document.getElementById('videoDesc').value = '';
-            document.getElementById('result').classList.remove('show');
-            document.getElementById('urlPreview').classList.remove('show');
+            
+            uploadedUrl = '';
+            
+            // Reset UI
+            document.getElementById('resultCard').classList.remove('show');
+            document.getElementById('previewCard').classList.remove('show');
             document.getElementById('slugStatus').textContent = '';
-            document.getElementById('progressContainer').style.display = 'none';
-            document.getElementById('dropZone').classList.remove('uploading');
             
-            uploadedVideyUrl = '';
+            updateBadge('titleBadge', 'Auto', 'auto');
+            updateBadge('slugBadge', 'Auto', 'auto');
             
-            // Reset badges
-            document.getElementById('titleBadge').textContent = 'Auto';
-            document.getElementById('titleBadge').className = 'auto-badge';
-            document.getElementById('slugBadge').textContent = 'Auto';
-            document.getElementById('slugBadge').className = 'auto-badge';
-            
-            // Reset button
             const btn = document.getElementById('createBtn');
             btn.innerHTML = '<span>🚀</span><span>Buat Link Video</span>';
             btn.onclick = createPost;
+            
+            setSource('upload');
         }
 
         function loadRecentVideos() {
-            const list = document.getElementById('videoList');
+            const grid = document.getElementById('videoGrid');
             const videos = [];
             
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
                 if (key.startsWith('videy_') && !key.startsWith('videy_recent_')) {
                     try {
-                        const data = JSON.parse(localStorage.getItem(key));
-                        videos.push(data);
+                        videos.push(JSON.parse(localStorage.getItem(key)));
                     } catch(e) {}
                 }
             }
@@ -1200,42 +1668,107 @@
             videos.sort((a, b) => b.created - a.created);
 
             if (videos.length === 0) {
-                list.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-muted);">Belum ada video</div>';
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <p>Belum ada video. Buat yang pertama!</p>
+                    </div>
+                `;
                 return;
             }
 
-            list.innerHTML = videos.slice(0, 6).map(v => `
-                <a href="v/?id=${v.id}" class="video-item">
+            grid.innerHTML = videos.map(v => `
+                <a href="v/?id=${v.id}" class="video-card">
                     <div class="video-thumb">▶</div>
                     <div class="video-info">
-                        <div class="video-title">
-                            ${escapeHtml(v.title)}
-                            ${v.source === 'videy.co' ? '<span class="video-source">videy.co</span>' : ''}
-                        </div>
+                        <div class="video-title">${escapeHtml(v.title)}</div>
                         <div class="video-meta">
-                            /v/${v.id} • ${v.views} views • ${timeAgo(v.created)}
+                            <span class="source-tag" style="background: ${getSourceColor(v.source)}20; color: ${getSourceColor(v.source)};">
+                                ${v.source}
+                            </span>
+                            <span>•</span>
+                            <span>/v/${v.id}</span>
+                            <span>•</span>
+                            <span>${v.views} views</span>
+                            <span>•</span>
+                            <span>${timeAgo(v.created)}</span>
                         </div>
                     </div>
                 </a>
             `).join('');
         }
 
-        function showError(msg) {
-            const box = document.getElementById('errorBox');
-            document.getElementById('errorText').textContent = msg;
-            box.classList.add('show');
-            setTimeout(() => box.classList.remove('show'), 5000);
+        function getSourceColor(source) {
+            const colors = {
+                upload: '#22c55e',
+                videy: '#6366f1',
+                x: '#000000',
+                quax: '#06b6d4'
+            };
+            return colors[source] || '#94a3b8';
         }
 
-        function hideError() {
-            document.getElementById('errorBox').classList.remove('show');
+        function clearAll() {
+            if (!confirm('Hapus semua video?')) return;
+            
+            const keys = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('videy_')) keys.push(key);
+            }
+            keys.forEach(key => localStorage.removeItem(key));
+            
+            loadRecentVideos();
+            showToast('Semua video dihapus');
         }
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('videy_theme', next);
+        }
+
+        function checkTheme() {
+            const saved = localStorage.getItem('videy_theme');
+            if (saved) {
+                document.documentElement.setAttribute('data-theme', saved);
+            }
+        }
+
+        function showHelp() {
+            alert(`Videy Pro - Panduan Penggunaan:
+
+1. UPLOAD FILE: Drop video atau browse (max 100MB)
+2. videy.co: Paste link dari videy.co
+3. X.com: Paste link tweet dengan video
+4. qu.ax: Paste link dari qu.ax
+
+Fitur:
+• Custom URL (opsional)
+• Auto-generate judul
+• QR Code generator
+• Dark/Light mode
+
+Semua data tersimpan di browser Anda (localStorage).`);
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'error' ? '❌' : type === 'warning' ? '⚠️' : '✅';
+            toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
 
         function escapeHtml(text) {
@@ -1248,10 +1781,10 @@
             const seconds = Math.floor((Date.now() - timestamp) / 1000);
             if (seconds < 60) return 'baru saja';
             const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes}m lalu`;
+            if (minutes < 60) return `${minutes}m`;
             const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours}j lalu`;
-            return `${Math.floor(hours / 24)}h lalu`;
+            if (hours < 24) return `${hours}j`;
+            return `${Math.floor(hours / 24)}h`;
         }
 
         // Prevent default drag
