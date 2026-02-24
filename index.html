@@ -25,8 +25,6 @@
             --border: rgba(148, 163, 184, 0.1);
             
             --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             --glass: rgba(19, 19, 31, 0.8);
         }
 
@@ -45,10 +43,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         body {
@@ -83,7 +77,6 @@
             background: var(--primary);
             top: -300px;
             left: -200px;
-            animation-delay: 0s;
         }
 
         .orb-2 {
@@ -95,22 +88,12 @@
             animation-delay: 5s;
         }
 
-        .orb-3 {
-            width: 400px;
-            height: 400px;
-            background: var(--accent);
-            top: 50%;
-            left: 50%;
-            animation-delay: 10s;
-        }
-
         @keyframes float {
             0%, 100% { transform: translate(0, 0) scale(1); }
             33% { transform: translate(50px, -50px) scale(1.1); }
             66% { transform: translate(-30px, 30px) scale(0.9); }
         }
 
-        /* Grid Pattern */
         .grid-pattern {
             position: fixed;
             inset: 0;
@@ -123,7 +106,6 @@
             pointer-events: none;
         }
 
-        /* Container */
         .container {
             position: relative;
             z-index: 1;
@@ -141,12 +123,6 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
-            animation: slideDown 0.8s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .brand {
@@ -165,12 +141,6 @@
             justify-content: center;
             font-size: 1.5rem;
             box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3); }
-            50% { box-shadow: 0 15px 50px rgba(99, 102, 241, 0.5); }
         }
 
         .brand-text h1 {
@@ -179,7 +149,6 @@
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            line-height: 1.2;
         }
 
         .brand-text p {
@@ -209,22 +178,15 @@
 
         .icon-btn:hover {
             background: var(--surface-hover);
-            transform: translateY(-2px);
             border-color: var(--primary);
         }
 
-        /* Source Selector */
+        /* Source Tabs */
         .source-tabs {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 0.75rem;
             margin-bottom: 1.5rem;
-            animation: fadeIn 0.6s ease 0.2s both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         .source-tab {
@@ -236,45 +198,25 @@
             cursor: pointer;
             transition: all 0.3s;
             text-align: center;
-            overflow: hidden;
-        }
-
-        .source-tab::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--gradient-1);
-            opacity: 0;
-            transition: opacity 0.3s;
         }
 
         .source-tab.active {
             border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .source-tab.active::before {
-            opacity: 0.1;
         }
 
         .source-icon {
             font-size: 1.75rem;
             margin-bottom: 0.5rem;
-            position: relative;
-            z-index: 1;
         }
 
         .source-label {
             font-size: 0.8rem;
             font-weight: 600;
             color: var(--text-muted);
-            position: relative;
-            z-index: 1;
         }
 
         .source-tab.active .source-label {
             color: var(--primary);
-            font-weight: 700;
         }
 
         /* Main Card */
@@ -284,13 +226,7 @@
             border: 1px solid var(--border);
             border-radius: 24px;
             padding: 2rem;
-            animation: slideUp 0.8s ease 0.3s both;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Upload Zone */
@@ -303,38 +239,15 @@
             cursor: pointer;
             transition: all 0.3s;
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
-            overflow: hidden;
-        }
-
-        .upload-zone::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            background: var(--gradient-1);
-            border-radius: 22px;
-            opacity: 0;
-            z-index: -1;
-            transition: opacity 0.3s;
         }
 
         .upload-zone:hover {
             border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .upload-zone:hover::before {
-            opacity: 0.3;
         }
 
         .upload-zone.dragover {
             border-color: var(--success);
             background: rgba(34, 197, 94, 0.1);
-            transform: scale(1.02);
-        }
-
-        .upload-zone.uploading {
-            pointer-events: none;
-            opacity: 0.7;
         }
 
         .upload-illustration {
@@ -347,12 +260,6 @@
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
 
         .upload-title {
@@ -370,14 +277,13 @@
             display: none;
         }
 
-        /* URL Input Section */
+        /* URL Section */
         .url-section {
             display: none;
         }
 
         .url-section.active {
             display: block;
-            animation: fadeIn 0.4s ease;
         }
 
         .input-group {
@@ -393,81 +299,37 @@
             font-weight: 600;
         }
 
-        .input-wrapper {
-            position: relative;
-        }
-
         .input-field {
             width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
+            padding: 1rem;
             background: var(--surface-light);
             border: 2px solid transparent;
             border-radius: 12px;
             color: var(--text);
             font-size: 1rem;
             transition: all 0.3s;
-            font-family: inherit;
         }
 
         .input-field:focus {
             outline: none;
             border-color: var(--primary);
-            background: var(--surface);
         }
 
-        .input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.25rem;
-            color: var(--text-muted);
-        }
-
-        .input-hint {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .input-hint.success {
-            color: var(--success);
-        }
-
-        .input-hint.error {
-            color: var(--error);
-        }
-
-        /* Source Badges */
         .source-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            padding: 0.3rem 0.75rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
+            margin-left: auto;
         }
 
         .badge-videy { background: rgba(99, 102, 241, 0.2); color: var(--primary); }
-        .badge-x { background: rgba(0, 0, 0, 0.2); color: #000; }
         .badge-quax { background: rgba(6, 182, 212, 0.2); color: var(--accent); }
-        .badge-file { background: rgba(34, 197, 94, 0.2); color: var(--success); }
 
         /* Progress */
         .progress-container {
             display: none;
             margin-top: 1.5rem;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
         }
 
         .progress-bar {
@@ -482,13 +344,12 @@
             background: var(--gradient-1);
             width: 0%;
             transition: width 0.3s;
-            border-radius: 4px;
         }
 
-        /* URL Preview */
+        /* Preview Card */
         .preview-card {
             display: none;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            background: rgba(99, 102, 241, 0.1);
             border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 16px;
             padding: 1.25rem;
@@ -497,25 +358,11 @@
 
         .preview-card.show {
             display: block;
-            animation: pulse-border 2s infinite;
-        }
-
-        @keyframes pulse-border {
-            0%, 100% { border-color: rgba(99, 102, 241, 0.3); }
-            50% { border-color: rgba(99, 102, 241, 0.6); }
-        }
-
-        .preview-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
         }
 
         .preview-url {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
+            font-family: monospace;
+            font-size: 0.9rem;
             word-break: break-all;
         }
 
@@ -536,27 +383,19 @@
             .source-tabs { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* Slug Input */
+        /* Slug */
         .slug-wrapper {
             display: flex;
             align-items: center;
             background: var(--surface-light);
             border-radius: 12px;
-            border: 2px solid transparent;
             overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .slug-wrapper:focus-within {
-            border-color: var(--primary);
-            background: var(--surface);
         }
 
         .slug-prefix {
             padding: 1rem;
             color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
+            font-family: monospace;
             border-right: 1px solid var(--border);
         }
 
@@ -566,43 +405,10 @@
             background: transparent;
             padding: 1rem;
             color: var(--text);
-            font-size: 1rem;
-            outline: none;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: monospace;
         }
 
-        .slug-actions {
-            display: flex;
-            gap: 0.5rem;
-            padding-right: 0.5rem;
-        }
-
-        .action-icon-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            border: none;
-            background: var(--surface);
-            color: var(--text);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .action-icon-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .slug-status {
-            padding: 0 1rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        /* Create Button */
+        /* Button */
         .create-btn {
             width: 100%;
             padding: 1.25rem;
@@ -617,25 +423,8 @@
             align-items: center;
             justify-content: center;
             gap: 0.75rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
             margin-top: 1rem;
-        }
-
-        .create-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s;
-        }
-
-        .create-btn:hover::before {
-            left: 100%;
+            transition: all 0.3s;
         }
 
         .create-btn:hover:not(:disabled) {
@@ -643,15 +432,10 @@
             box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
         }
 
-        .create-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
         /* Result */
         .result-card {
             display: none;
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            background: rgba(34, 197, 94, 0.1);
             border: 1px solid var(--success);
             border-radius: 20px;
             padding: 1.5rem;
@@ -660,36 +444,13 @@
 
         .result-card.show {
             display: block;
-            animation: scaleIn 0.5s ease;
-        }
-
-        .result-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--success);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .result-url-box {
-            background: var(--surface);
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-        }
-
-        .result-url {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            word-break: break-all;
         }
 
         .result-actions {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 0.75rem;
+            margin-top: 1rem;
         }
 
         .result-btn {
@@ -703,15 +464,6 @@
             flex-direction: column;
             align-items: center;
             gap: 0.25rem;
-            transition: all 0.3s;
-        }
-
-        .result-btn .icon {
-            font-size: 1.25rem;
-        }
-
-        .result-btn .label {
-            font-size: 0.75rem;
         }
 
         .result-btn.primary {
@@ -725,10 +477,6 @@
             border: 1px solid var(--border);
         }
 
-        .result-btn:hover {
-            transform: translateY(-2px);
-        }
-
         .result-btn.copied {
             background: var(--success) !important;
         }
@@ -740,7 +488,6 @@
         /* Recent Videos */
         .recent-section {
             margin-top: 3rem;
-            animation: slideUp 0.8s ease 0.5s both;
         }
 
         .section-header {
@@ -753,9 +500,6 @@
         .section-title {
             font-size: 1.25rem;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .clear-btn {
@@ -766,12 +510,6 @@
             color: var(--text-muted);
             font-size: 0.85rem;
             cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .clear-btn:hover {
-            border-color: var(--error);
-            color: var(--error);
         }
 
         .video-grid {
@@ -792,7 +530,6 @@
         }
 
         .video-card:hover {
-            background: var(--surface-hover);
             border-color: var(--primary);
             transform: translateX(5px);
         }
@@ -807,32 +544,11 @@
             justify-content: center;
             font-size: 2rem;
             flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .video-thumb::after {
-            content: '▶';
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0,0,0,0.3);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .video-card:hover .video-thumb::after {
-            opacity: 1;
         }
 
         .video-info {
             flex: 1;
             min-width: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
 
         .video-title {
@@ -845,9 +561,6 @@
         }
 
         .video-meta {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
             font-size: 0.8rem;
             color: var(--text-muted);
         }
@@ -869,7 +582,6 @@
         .empty-icon {
             font-size: 4rem;
             margin-bottom: 1rem;
-            opacity: 0.5;
         }
 
         /* Toast */
@@ -890,26 +602,38 @@
             border-radius: 12px;
             border-left: 4px solid var(--success);
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            animation: slideInRight 0.3s ease;
-            min-width: 300px;
+            animation: slideIn 0.3s ease;
         }
 
-        @keyframes slideInRight {
+        @keyframes slideIn {
             from { opacity: 0; transform: translateX(100%); }
             to { opacity: 1; transform: translateX(0); }
         }
 
-        .toast.error { border-left-color: var(--error); }
-        .toast.warning { border-left-color: var(--warning); }
+        /* Error */
+        .error-box {
+            display: none;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .error-box.show {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
         /* Footer */
         .footer {
             margin-top: auto;
             padding-top: 3rem;
             text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
         }
 
         .footer-brands {
@@ -917,15 +641,12 @@
             justify-content: center;
             gap: 2rem;
             margin-bottom: 1.5rem;
-            flex-wrap: wrap;
         }
 
         .brand-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.85rem;
         }
 
         .brand-dot {
@@ -938,79 +659,13 @@
         .dot-x { background: #000; }
         .dot-quax { background: var(--accent); }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            font-size: 0.85rem;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-
-        /* Loading Skeleton */
-        .skeleton {
-            background: linear-gradient(90deg, var(--surface) 25%, var(--surface-light) 50%, var(--surface) 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-            border-radius: 8px;
-        }
-
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* Error Box */
-        .error-box {
-            display: none;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid var(--error);
-            color: var(--error);
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .error-box.show {
-            display: flex;
-        }
-
-        /* Animations */
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container { padding: 1.5rem; }
-            .brand-text h1 { font-size: 1.5rem; }
-            .main-card { padding: 1.5rem; }
-            .upload-zone { padding: 2rem 1.5rem; }
-            .upload-illustration { width: 80px; height: 80px; font-size: 2.5rem; }
-        }
+        [data-theme="light"] .dot-x { background: #333; }
     </style>
 </head>
 <body>
     <div class="bg-canvas">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
     </div>
     <div class="grid-pattern"></div>
 
@@ -1025,8 +680,7 @@
                 </div>
             </div>
             <div class="header-actions">
-                <button class="icon-btn" onclick="toggleTheme()" title="Toggle Theme">🌓</button>
-                <button class="icon-btn" onclick="showHelp()" title="Help">❓</button>
+                <button class="icon-btn" onclick="toggleTheme()">🌓</button>
             </div>
         </header>
 
@@ -1034,7 +688,7 @@
         <div class="source-tabs">
             <div class="source-tab active" onclick="setSource('upload')" id="tab-upload">
                 <div class="source-icon">📤</div>
-                <div class="source-label">Upload File</div>
+                <div class="source-label">Upload</div>
             </div>
             <div class="source-tab" onclick="setSource('videy')" id="tab-videy">
                 <div class="source-icon">☁️</div>
@@ -1067,8 +721,8 @@
                 </div>
 
                 <div class="progress-container" id="progressContainer">
-                    <div class="progress-header">
-                        <span id="progressLabel">Uploading...</span>
+                    <div class="progress-header" style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+                        <span>Uploading...</span>
                         <span id="progressPercent">0%</span>
                     </div>
                     <div class="progress-bar">
@@ -1077,7 +731,7 @@
                 </div>
             </div>
 
-            <!-- URL Input Modes -->
+            <!-- URL Mode -->
             <div class="url-section" id="urlSection">
                 <div class="input-group">
                     <label class="input-label">
@@ -1085,55 +739,42 @@
                         <span id="urlLabel">Video URL</span>
                         <span class="source-badge" id="sourceBadge"></span>
                     </label>
-                    <div class="input-wrapper">
-                        <span class="input-icon" id="urlInputIcon">🌐</span>
-                        <input type="url" class="input-field" id="videoUrl" 
-                               placeholder="Paste URL video di sini...">
-                    </div>
-                    <div class="input-hint" id="urlHint">
-                        <span>💡</span>
-                        <span>Support: MP4, WebM, MOV langsung</span>
+                    <input type="url" class="input-field" id="videoUrl" 
+                           placeholder="Paste URL video di sini...">
+                    <div class="input-hint" style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-muted);">
+                        💡 Support: MP4, WebM, MOV langsung
                     </div>
                 </div>
             </div>
 
-            <!-- Preview Card -->
+            <!-- Preview -->
             <div class="preview-card" id="previewCard">
-                <div class="preview-label">🔗 URL yang akan dibuat</div>
-                <div class="preview-url" id="previewUrl">
-                    Loading...
-                </div>
+                <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">🔗 URL yang akan dibuat</div>
+                <div class="preview-url" id="previewUrl">Loading...</div>
             </div>
 
-            <!-- Form Grid -->
+            <!-- Form -->
             <div class="form-grid">
                 <div class="input-group">
                     <label class="input-label">
                         <span>📝</span>
                         Judul Video
-                        <span class="source-badge badge-file" id="titleBadge">Auto</span>
+                        <span class="source-badge badge-videy" id="titleBadge">Auto</span>
                     </label>
-                    <div class="input-wrapper">
-                        <span class="input-icon">✨</span>
-                        <input type="text" class="input-field" id="videoTitle" 
-                               placeholder="Auto-detect dari sumber">
-                    </div>
+                    <input type="text" class="input-field" id="videoTitle" 
+                           placeholder="Auto-detect dari sumber">
                 </div>
 
                 <div class="input-group">
                     <label class="input-label">
                         <span>✨</span>
                         Custom URL
-                        <span class="source-badge badge-file" id="slugBadge">Auto</span>
+                        <span class="source-badge badge-videy" id="slugBadge">Auto</span>
                     </label>
                     <div class="slug-wrapper">
                         <span class="slug-prefix">/v/</span>
                         <input type="text" class="slug-input" id="customSlug" 
                                placeholder="random-id">
-                        <div class="slug-actions">
-                            <button class="action-icon-btn" onclick="generateRandomSlug()" title="Random">🎲</button>
-                        </div>
-                        <span class="slug-status" id="slugStatus"></span>
                     </div>
                 </div>
             </div>
@@ -1144,7 +785,7 @@
                     Deskripsi (Opsional)
                 </label>
                 <textarea class="input-field" id="videoDesc" rows="2" 
-                          placeholder="Tambahkan deskripsi video..."></textarea>
+                          placeholder="Tambahkan deskripsi..."></textarea>
             </div>
 
             <button class="create-btn" id="createBtn" onclick="createPost()">
@@ -1154,138 +795,84 @@
 
             <!-- Result -->
             <div class="result-card" id="resultCard">
-                <div class="result-header">
+                <div style="display:flex;align-items:center;gap:0.5rem;color:var(--success);font-weight:700;margin-bottom:1rem;">
                     <span>✅</span>
                     <span>Video berhasil dibuat!</span>
                 </div>
-                <div class="result-url-box">
-                    <div class="result-url" id="resultUrl"></div>
+                <div style="background:var(--surface);padding:1rem;border-radius:12px;margin-bottom:1rem;">
+                    <div id="resultUrl" style="font-family:monospace;word-break:break-all;"></div>
                 </div>
                 <div class="result-actions">
                     <button class="result-btn primary" onclick="copyResult()">
-                        <span class="icon">📋</span>
-                        <span class="label">Copy</span>
+                        <span style="font-size:1.25rem;">📋</span>
+                        <span style="font-size:0.75rem;">Copy</span>
                     </button>
                     <button class="result-btn secondary" onclick="openVideo()">
-                        <span class="icon">▶</span>
-                        <span class="label">Watch</span>
+                        <span style="font-size:1.25rem;">▶</span>
+                        <span style="font-size:0.75rem;">Watch</span>
                     </button>
                     <button class="result-btn secondary" onclick="shareVideo()">
-                        <span class="icon">📤</span>
-                        <span class="label">Share</span>
+                        <span style="font-size:1.25rem;">📤</span>
+                        <span style="font-size:0.75rem;">Share</span>
                     </button>
                     <button class="result-btn secondary" onclick="qrCode()">
-                        <span class="icon">📱</span>
-                        <span class="label">QR</span>
+                        <span style="font-size:1.25rem;">📱</span>
+                        <span style="font-size:0.75rem;">QR</span>
                     </button>
                 </div>
             </div>
         </main>
 
-        <!-- Recent Videos -->
+        <!-- Recent -->
         <section class="recent-section">
             <div class="section-header">
-                <h2 class="section-title">
-                    <span>🕐</span>
-                    Video Terbaru
-                </h2>
+                <h2 class="section-title">🕐 Video Terbaru</h2>
                 <button class="clear-btn" onclick="clearAll()">Clear All</button>
             </div>
-            <div class="video-grid" id="videoGrid">
-                <!-- Populated by JS -->
-            </div>
+            <div class="video-grid" id="videoGrid"></div>
         </section>
 
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-brands">
-                <div class="brand-item">
-                    <span class="brand-dot dot-videy"></span>
-                    <span>videy.co</span>
-                </div>
-                <div class="brand-item">
-                    <span class="brand-dot dot-x"></span>
-                    <span>X.com</span>
-                </div>
-                <div class="brand-item">
-                    <span class="brand-dot dot-quax"></span>
-                    <span>qu.ax</span>
-                </div>
+                <div class="brand-item"><span class="brand-dot dot-videy"></span><span>videy.co</span></div>
+                <div class="brand-item"><span class="brand-dot dot-x"></span><span>X.com</span></div>
+                <div class="brand-item"><span class="brand-dot dot-quax"></span><span>qu.ax</span></div>
             </div>
-            <div class="footer-links">
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
-                <a href="#">API</a>
-                <a href="#">GitHub</a>
-            </div>
+            <p>© 2024 Videy Pro • Free Forever</p>
         </footer>
     </div>
 
-    <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
-        // State
         let currentSource = 'upload';
         let uploadedUrl = '';
         let generatedUrl = '';
-        let generatedId = '';
 
-        // Source configurations
         const sources = {
-            upload: {
-                name: 'Upload File',
-                icon: '📤',
-                placeholder: 'Drop file atau browse',
-                hint: 'Max 100MB • MP4, WebM, MOV',
-                badge: '',
-                color: ''
-            },
-            videy: {
-                name: 'videy.co',
-                icon: '☁️',
-                placeholder: 'https://videy.co/v/?id=xxx',
-                hint: 'Paste link videy.co Anda',
-                badge: 'videy',
-                color: '#6366f1'
-            },
-            x: {
-                name: 'X.com',
-                icon: '𝕏',
-                placeholder: 'https://x.com/username/status/xxx',
-                hint: 'Paste link tweet dengan video',
-                badge: 'x',
-                color: '#000000'
-            },
-            quax: {
-                name: 'qu.ax',
-                icon: '📎',
-                placeholder: 'https://qu.ax/xxx',
-                hint: 'Paste link qu.ax Anda',
-                badge: 'quax',
-                color: '#06b6d4'
-            }
+            upload: { name: 'Upload', icon: '📤', placeholder: 'Drop file', hint: 'Max 100MB' },
+            videy: { name: 'videy.co', icon: '☁️', placeholder: 'https://videy.co/v/?id=xxx', hint: 'Paste videy link', badge: 'videy' },
+            x: { name: 'X.com', icon: '𝕏', placeholder: 'https://x.com/user/status/xxx', hint: 'Paste X link', badge: 'x' },
+            quax: { name: 'qu.ax', icon: '📎', placeholder: 'https://qu.ax/xxx', hint: 'Paste qu.ax link', badge: 'quax' }
         };
 
-        // Init
         document.addEventListener('DOMContentLoaded', () => {
             loadRecentVideos();
-            setupEventListeners();
+            setupEvents();
             checkTheme();
         });
 
-        function setupEventListeners() {
-            // File upload
+        function setupEvents() {
             const dropZone = document.getElementById('dropZone');
             const fileInput = document.getElementById('fileInput');
 
             dropZone.addEventListener('click', () => fileInput.click());
             
             fileInput.addEventListener('change', (e) => {
-                if (e.target.files[0]) handleFileUpload(e.target.files[0]);
+                if (e.target.files[0]) handleFile(e.target.files[0]);
             });
 
-            // Drag & drop
             dropZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 dropZone.classList.add('dragover');
@@ -1298,54 +885,39 @@
             dropZone.addEventListener('drop', (e) => {
                 e.preventDefault();
                 dropZone.classList.remove('dragover');
-                if (e.dataTransfer.files[0]) handleFileUpload(e.dataTransfer.files[0]);
+                if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
             });
 
-            // URL input
-            document.getElementById('videoUrl').addEventListener('input', handleUrlInput);
-            
-            // Title override
-            document.getElementById('videoTitle').addEventListener('input', function() {
-                updateBadge('titleBadge', this.value ? 'Custom' : 'Auto', this.value ? 'custom' : 'auto');
-            });
-
-            // Slug
-            document.getElementById('customSlug').addEventListener('input', validateSlug);
+            document.getElementById('videoUrl').addEventListener('input', updatePreview);
+            document.getElementById('customSlug').addEventListener('input', updatePreview);
         }
 
         function setSource(source) {
             currentSource = source;
-            
-            // Update tabs
-            document.querySelectorAll('.source-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.source-tab').forEach(t => t.classList.remove('active'));
             document.getElementById(`tab-${source}`).classList.add('active');
             
-            // Update sections
             const isUpload = source === 'upload';
             document.getElementById('uploadSection').style.display = isUpload ? 'block' : 'none';
             document.getElementById('urlSection').classList.toggle('active', !isUpload);
             
-            // Update URL input config
             if (!isUpload) {
-                const config = sources[source];
-                document.getElementById('urlIcon').textContent = config.icon;
-                document.getElementById('urlLabel').textContent = `${config.name} URL`;
-                document.getElementById('videoUrl').placeholder = config.placeholder;
-                document.getElementById('urlHint').innerHTML = `<span>💡</span><span>${config.hint}</span>`;
-                
+                const cfg = sources[source];
+                document.getElementById('urlIcon').textContent = cfg.icon;
+                document.getElementById('urlLabel').textContent = cfg.name + ' URL';
+                document.getElementById('videoUrl').placeholder = cfg.placeholder;
                 const badge = document.getElementById('sourceBadge');
-                badge.className = `source-badge badge-${config.badge}`;
-                badge.textContent = config.name;
+                badge.className = `source-badge badge-${cfg.badge}`;
+                badge.textContent = cfg.name;
             }
             
-            // Reset
             uploadedUrl = '';
             updatePreview();
         }
 
-        async function handleFileUpload(file) {
+        function handleFile(file) {
             if (!file.type.startsWith('video/')) {
-                showToast('File harus berupa video!', 'error');
+                showToast('File harus video!', 'error');
                 return;
             }
 
@@ -1357,102 +929,42 @@
             dropZone.classList.add('uploading');
             progressContainer.style.display = 'block';
 
-            try {
-                // Try videy.co first (simulated with file.io for demo)
-                const formData = new FormData();
-                formData.append('file', file);
+            const formData = new FormData();
+            formData.append('file', file);
 
-                const xhr = new XMLHttpRequest();
-                
-                xhr.upload.addEventListener('progress', (e) => {
-                    if (e.lengthComputable) {
-                        const percent = Math.round((e.loaded / e.total) * 100);
-                        progressFill.style.width = percent + '%';
-                        progressPercent.textContent = percent + '%';
-                    }
-                });
-
-                xhr.addEventListener('load', () => {
-                    if (xhr.status === 200) {
-                        const response = JSON.parse(xhr.responseText);
-                        uploadedUrl = response.link;
-                        
-                        // Auto title
-                        const autoTitle = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
-                        document.getElementById('videoTitle').placeholder = autoTitle;
-                        
-                        dropZone.classList.remove('uploading');
-                        progressContainer.style.display = 'none';
-                        
-                        showToast('✅ Upload selesai!');
-                        updatePreview();
-                    } else {
-                        throw new Error('Upload failed');
-                    }
-                });
-
-                xhr.open('POST', 'https://file.io');
-                xhr.send(formData);
-
-            } catch (err) {
-                showToast('Upload gagal: ' + err.message, 'error');
-                dropZone.classList.remove('uploading');
-                progressContainer.style.display = 'none';
-            }
-        }
-
-        function handleUrlInput() {
-            const url = document.getElementById('videoUrl').value.trim();
+            const xhr = new XMLHttpRequest();
             
-            if (!url) {
-                updatePreview();
-                return;
-            }
+            xhr.upload.addEventListener('progress', (e) => {
+                if (e.lengthComputable) {
+                    const pct = Math.round((e.loaded / e.total) * 100);
+                    progressFill.style.width = pct + '%';
+                    progressPercent.textContent = pct + '%';
+                }
+            });
 
-            // Detect source from URL
-            let detectedSource = currentSource;
-            if (url.includes('videy.co') || url.includes('videy')) detectedSource = 'videy';
-            else if (url.includes('x.com') || url.includes('twitter.com')) detectedSource = 'x';
-            else if (url.includes('qu.ax')) detectedSource = 'quax';
-            
-            // Update UI if source detected
-            if (detectedSource !== currentSource && currentSource !== 'upload') {
-                // Optional: auto-switch tab
-            }
+            xhr.addEventListener('load', () => {
+                if (xhr.status === 200) {
+                    const res = JSON.parse(xhr.responseText);
+                    uploadedUrl = res.link;
+                    
+                    const autoTitle = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+                    document.getElementById('videoTitle').placeholder = autoTitle;
+                    
+                    dropZone.classList.remove('uploading');
+                    progressContainer.style.display = 'none';
+                    showToast('✅ Upload selesai!');
+                    updatePreview();
+                } else {
+                    throw new Error('Upload failed');
+                }
+            });
 
-            // Extract info based on source
-            let title = '';
-            if (detectedSource === 'videy') {
-                // videy.co URL format: https://videy.co/v/?id=xxx
-                const match = url.match(/[?&]id=([^&]+)/);
-                if (match) title = `Videy Video ${match[1]}`;
-            } else if (detectedSource === 'x') {
-                // X.com URL
-                title = 'X Video';
-            } else if (detectedSource === 'quax') {
-                // qu.ax URL format: https://qu.ax/xxx
-                const match = url.match(/qu\.ax\/([a-zA-Z0-9]+)/);
-                if (match) title = `qu.ax ${match[1]}`;
-            } else {
-                // Generic - extract from filename
-                try {
-                    const urlObj = new URL(url);
-                    const filename = urlObj.pathname.split('/').pop();
-                    title = filename.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
-                } catch {}
-            }
-
-            if (title && !document.getElementById('videoTitle').value) {
-                document.getElementById('videoTitle').placeholder = title;
-            }
-
-            updatePreview();
+            xhr.open('POST', 'https://file.io');
+            xhr.send(formData);
         }
 
         function updatePreview() {
             const previewCard = document.getElementById('previewCard');
-            const previewUrl = document.getElementById('previewUrl');
-            
             const hasContent = (currentSource === 'upload' && uploadedUrl) || 
                               (currentSource !== 'upload' && document.getElementById('videoUrl').value.trim());
             
@@ -1464,84 +976,34 @@
             previewCard.classList.add('show');
             
             const base = window.location.origin + window.location.pathname.replace('index.html', '');
-            const slug = document.getElementById('customSlug').value.trim() || '[auto-generated]';
+            const slug = document.getElementById('customSlug').value.trim() || '[auto]';
             
-            previewUrl.innerHTML = `${base}v/?id=<span class="highlight">${slug}</span>`;
+            document.getElementById('previewUrl').innerHTML = 
+                `${base}v/?id=<span class="highlight">${slug}</span>`;
         }
 
-        function validateSlug() {
-            const input = document.getElementById('customSlug');
-            const status = document.getElementById('slugStatus');
-            let slug = input.value.trim().toLowerCase();
-            
-            // Sanitize
-            const clean = slug.replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-            if (slug !== clean) {
-                input.value = clean;
-                slug = clean;
-            }
-
-            updateBadge('slugBadge', slug ? 'Custom' : 'Auto', slug ? 'custom' : 'auto');
-
-            if (!slug) {
-                status.textContent = '';
-                return;
-            }
-
-            const exists = localStorage.getItem(`videy_${slug}`);
-            if (exists) {
-                status.textContent = '⚠️ Used';
-                status.className = 'slug-status taken';
-            } else {
-                status.textContent = '✓ Available';
-                status.className = 'slug-status available';
-            }
-
-            updatePreview();
-        }
-
-        function generateRandomSlug() {
-            const id = Math.random().toString(36).substring(2, 8);
-            document.getElementById('customSlug').value = id;
-            validateSlug();
-        }
-
-        function updateBadge(id, text, type) {
-            const badge = document.getElementById(id);
-            badge.textContent = text;
-            badge.className = `source-badge ${type === 'custom' ? 'badge-videy' : 'badge-file'}`;
-        }
-
-        async function createPost() {
+        function createPost() {
             let videoUrl;
             
             if (currentSource === 'upload') {
                 if (!uploadedUrl) {
-                    showToast('Upload video terlebih dahulu!', 'error');
+                    showToast('Upload dulu!', 'error');
                     return;
                 }
                 videoUrl = uploadedUrl;
             } else {
                 videoUrl = document.getElementById('videoUrl').value.trim();
                 if (!videoUrl) {
-                    showToast('Masukkan URL video!', 'error');
-                    return;
-                }
-                
-                // Validate URL format
-                if (!isValidUrl(videoUrl)) {
-                    showToast('URL tidak valid!', 'error');
+                    showToast('Masukkan URL!', 'error');
                     return;
                 }
             }
 
-            // Get title
             let title = document.getElementById('videoTitle').value.trim();
             if (!title) {
-                title = document.getElementById('videoTitle').placeholder || 'Untitled Video';
+                title = document.getElementById('videoTitle').placeholder || 'Untitled';
             }
 
-            // Generate ID
             let id = document.getElementById('customSlug').value.trim().toLowerCase();
             id = id.replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
             
@@ -1553,11 +1015,8 @@
                 if (!confirm(`URL /v/${id} sudah ada. Timpa?`)) return;
             }
 
-            // Save
             const data = {
-                id,
-                url: videoUrl,
-                title,
+                id, url: videoUrl, title,
                 desc: document.getElementById('videoDesc').value.trim(),
                 source: currentSource,
                 created: Date.now(),
@@ -1566,48 +1025,50 @@
 
             localStorage.setItem(`videy_${id}`, JSON.stringify(data));
 
-            // Show result
             const base = window.location.origin + window.location.pathname.replace('index.html', '');
             generatedUrl = `${base}v/?id=${id}`;
-            generatedId = id;
 
-            document.getElementById('resultUrl').innerHTML = `
-                <span style="color: var(--text-muted);">${base}v/?id=</span>
-                <span style="color: var(--primary); font-weight: 700;">${id}</span>
-            `;
+            document.getElementById('resultUrl').innerHTML = 
+                `<span style="color:var(--text-muted);">${base}v/?id=</span><span style="color:var(--primary);font-weight:700;">${id}</span>`;
             document.getElementById('resultCard').classList.add('show');
 
-            // Update button
-            const btn = document.getElementById('createBtn');
-            btn.innerHTML = '<span>✨</span><span>Buat Lagi</span>';
-            btn.onclick = resetForm;
+            document.getElementById('createBtn').innerHTML = '<span>✨</span><span>Buat Lagi</span>';
+            document.getElementById('createBtn').onclick = resetForm;
 
             loadRecentVideos();
-            showToast('🎉 Video berhasil dibuat!');
-            
+            showToast('🎉 Berhasil dibuat!');
             setTimeout(() => copyResult(), 1000);
         }
 
-        function isValidUrl(string) {
-            try {
-                new URL(string);
-                return true;
-            } catch (_) {
-                return false;
-            }
+        function resetForm() {
+            document.getElementById('fileInput').value = '';
+            document.getElementById('videoUrl').value = '';
+            document.getElementById('videoTitle').value = '';
+            document.getElementById('customSlug').value = '';
+            document.getElementById('videoDesc').value = '';
+            document.getElementById('resultCard').classList.remove('show');
+            document.getElementById('previewCard').classList.remove('show');
+            
+            uploadedUrl = '';
+            
+            const btn = document.getElementById('createBtn');
+            btn.innerHTML = '<span>🚀</span><span>Buat Link Video</span>';
+            btn.onclick = createPost;
+            
+            setSource('upload');
         }
 
         function copyResult() {
             navigator.clipboard.writeText(generatedUrl);
-            showToast('✅ Link berhasil disalin!');
+            showToast('✅ Link disalin!');
             
             const btn = document.querySelector('.result-btn.primary');
             btn.classList.add('copied');
-            const original = btn.innerHTML;
-            btn.innerHTML = '<span class="icon">✓</span><span class="label">Copied!</span>';
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<span style="font-size:1.25rem;">✓</span><span style="font-size:0.75rem;">Copied!</span>';
             setTimeout(() => {
                 btn.classList.remove('copied');
-                btn.innerHTML = original;
+                btn.innerHTML = orig;
             }, 2000);
         }
 
@@ -1627,31 +1088,6 @@
             window.open(`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(generatedUrl)}`, '_blank');
         }
 
-        function resetForm() {
-            // Reset all
-            document.getElementById('fileInput').value = '';
-            document.getElementById('videoUrl').value = '';
-            document.getElementById('videoTitle').value = '';
-            document.getElementById('customSlug').value = '';
-            document.getElementById('videoDesc').value = '';
-            
-            uploadedUrl = '';
-            
-            // Reset UI
-            document.getElementById('resultCard').classList.remove('show');
-            document.getElementById('previewCard').classList.remove('show');
-            document.getElementById('slugStatus').textContent = '';
-            
-            updateBadge('titleBadge', 'Auto', 'auto');
-            updateBadge('slugBadge', 'Auto', 'auto');
-            
-            const btn = document.getElementById('createBtn');
-            btn.innerHTML = '<span>🚀</span><span>Buat Link Video</span>';
-            btn.onclick = createPost;
-            
-            setSource('upload');
-        }
-
         function loadRecentVideos() {
             const grid = document.getElementById('videoGrid');
             const videos = [];
@@ -1668,58 +1104,38 @@
             videos.sort((a, b) => b.created - a.created);
 
             if (videos.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📭</div>
-                        <p>Belum ada video. Buat yang pertama!</p>
-                    </div>
-                `;
+                grid.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><p>Belum ada video</p></div>';
                 return;
             }
+
+            const colors = {
+                upload: '#22c55e', videy: '#6366f1', x: '#000', quax: '#06b6d4'
+            };
 
             grid.innerHTML = videos.map(v => `
                 <a href="v/?id=${v.id}" class="video-card">
                     <div class="video-thumb">▶</div>
                     <div class="video-info">
-                        <div class="video-title">${escapeHtml(v.title)}</div>
+                        <div class="video-title">${v.title}</div>
                         <div class="video-meta">
-                            <span class="source-tag" style="background: ${getSourceColor(v.source)}20; color: ${getSourceColor(v.source)};">
-                                ${v.source}
-                            </span>
-                            <span>•</span>
-                            <span>/v/${v.id}</span>
-                            <span>•</span>
-                            <span>${v.views} views</span>
-                            <span>•</span>
-                            <span>${timeAgo(v.created)}</span>
+                            <span class="source-tag" style="background:${colors[v.source]}20;color:${colors[v.source]};">${v.source}</span>
+                            <span>• /v/${v.id} • ${v.views} views • ${timeAgo(v.created)}</span>
                         </div>
                     </div>
                 </a>
             `).join('');
         }
 
-        function getSourceColor(source) {
-            const colors = {
-                upload: '#22c55e',
-                videy: '#6366f1',
-                x: '#000000',
-                quax: '#06b6d4'
-            };
-            return colors[source] || '#94a3b8';
-        }
-
         function clearAll() {
-            if (!confirm('Hapus semua video?')) return;
-            
+            if (!confirm('Hapus semua?')) return;
             const keys = [];
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
                 if (key.startsWith('videy_')) keys.push(key);
             }
-            keys.forEach(key => localStorage.removeItem(key));
-            
+            keys.forEach(k => localStorage.removeItem(k));
             loadRecentVideos();
-            showToast('Semua video dihapus');
+            showToast('Semua dihapus');
         }
 
         function toggleTheme() {
@@ -1727,71 +1143,39 @@
             const current = html.getAttribute('data-theme');
             const next = current === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', next);
-            localStorage.setItem('videy_theme', next);
+            localStorage.setItem('theme', next);
         }
 
         function checkTheme() {
-            const saved = localStorage.getItem('videy_theme');
-            if (saved) {
-                document.documentElement.setAttribute('data-theme', saved);
-            }
+            const saved = localStorage.getItem('theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
         }
 
-        function showHelp() {
-            alert(`Videy Pro - Panduan Penggunaan:
-
-1. UPLOAD FILE: Drop video atau browse (max 100MB)
-2. videy.co: Paste link dari videy.co
-3. X.com: Paste link tweet dengan video
-4. qu.ax: Paste link dari qu.ax
-
-Fitur:
-• Custom URL (opsional)
-• Auto-generate judul
-• QR Code generator
-• Dark/Light mode
-
-Semua data tersimpan di browser Anda (localStorage).`);
-        }
-
-        function showToast(message, type = 'success') {
+        function showToast(msg, type = 'success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            
-            const icon = type === 'error' ? '❌' : type === 'warning' ? '⚠️' : '✅';
-            toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
-            
+            toast.className = 'toast';
+            if (type === 'error') toast.style.borderLeftColor = 'var(--error)';
+            toast.innerHTML = `<span>${type === 'error' ? '❌' : '✅'}</span><span>${msg}</span>`;
             container.appendChild(toast);
-            
             setTimeout(() => {
                 toast.style.opacity = '0';
-                toast.style.transform = 'translateX(100%)';
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
 
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
+        function timeAgo(ts) {
+            const s = Math.floor((Date.now() - ts) / 1000);
+            if (s < 60) return 'baru';
+            if (s < 3600) return Math.floor(s/60) + 'm';
+            if (s < 86400) return Math.floor(s/3600) + 'j';
+            return Math.floor(s/86400) + 'h';
         }
 
-        function timeAgo(timestamp) {
-            const seconds = Math.floor((Date.now() - timestamp) / 1000);
-            if (seconds < 60) return 'baru saja';
-            const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes}m`;
-            const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours}j`;
-            return `${Math.floor(hours / 24)}h`;
-        }
-
-        // Prevent default drag
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            document.body.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(e => {
+            document.body.addEventListener(e, (ev) => {
+                ev.preventDefault();
+                ev.stopPropagation();
             }, false);
         });
     </script>
